@@ -16,7 +16,7 @@ The dungeon has 5 floors where different floors stand for ascending levels. On e
 
 0
 
-   A`      `B"      "C"      "D
+`    `A`      `B`      `C`      `D
 
 On each floor, there are 3 monsters whose coordinates and levels are randomly generated. The range of monster levels on each floor increases. For example, on the 1st floor, the monster level: lv1-lv3. On the 2rd floor: lv4-lv6, etc.
 
