@@ -15,6 +15,7 @@ The dungeon has 5 floors where different floors stand for ascending levels. On e
 1
 
 0
+
    A      B      C      D
 
 On each floor, there are 3 monsters whose coordinates and levels are randomly generated. The range of monster levels on each floor increases. For example, on the 1st floor, the monster level: lv1-lv3. On the 2rd floor: lv4-lv6, etc.
@@ -63,7 +64,8 @@ During the escape, if the player's HP=0, then he dies and the game is over. If t
     - the function to generate a random map of monsters and coins
     - the function to process the player’s move, 
     - the function to make changes to the player’s status
-    -the function to buy HP or increase combat level  
+    - the function to buy HP or increase combat level  
     etc.
-    Different functions are separately put in multiple files to make the code more clear.
+    
+    Different functions are separately put in multiple files to make the code clearer.
 
