@@ -1,4 +1,4 @@
-# dungeon-advanture
+#dungeon-advanture
 ## team members:
 - Wu Jiaxin (3035770886)
 - Chan 
@@ -10,34 +10,12 @@ The dungeon has 5 floors where different floors stand for ascending levels. On e
 
 3
 
-
-
-
-
-
 2
-
-
-
-
-
 
 1
 
-
-
-
-
-
 0
-
-
-
-
-
-
-
-                       A      B       C     D
+   A      B      C      D
 
 On each floor, there are 3 monsters whose coordinates and levels are randomly generated. The range of monster levels on each floor increases. For example, on the 1st floor, the monster level: lv1-lv3. On the 2rd floor: lv4-lv6, etc.
 
@@ -57,17 +35,6 @@ On each floor, there are several coins whose coordinates are randomly generated.
 If the player meets the coin reward (move to the coordinate where the coin reward lies), then the player can gain the coins.
 
 During the escape, if the player's HP=0, then he dies and the game is over. If the player could survive and arrive at D3 of the 5-th floor with HP>0, he wins the game. 
-
-rule
-每一层4*4，从第一层开始
-每步可以上下左右移动一格。用坐标表示位置 A0是入口，D3是出口
-每层有3个怪兽，可以知道怪兽的等级范围，但不知道准确等级，每一层怪兽平均等级逐渐增高
-遇到怪兽可以选择打或不打，
-打：如果武力值>怪兽等级可以获得金币，< 则扣生命值
-不打：扣一定的生命值
-金币可以用来买生命值和武力值
-没有怪兽的格子可能随机掉落金币
-生命值=0则游戏结束，到达第五层出口则成功通关
 
 ## Features we want to implement:
 - Monsters and coins are generated in random grids(coordinates) whenever the player enters a new floor.
@@ -98,5 +65,5 @@ rule
     - the function to make changes to the player’s status
     -the function to buy HP or increase combat level  
     etc.
-    and different functions are separately put in multiple files to make the code more clear.
+    Different functions are separately put in multiple files to make the code more clear.
 
