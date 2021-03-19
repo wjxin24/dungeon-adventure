@@ -1,7 +1,7 @@
 # dungeon-advanture
 ## team members:
 - Wu Jiaxin (3035770886)
-- Chan 
+- Chan KwanYi (3035691561)
 ## Game Description
 This is an adventure game that the player, a warrior who is caught in the dungeon, wins the game if she/he successfully escapes from the nightmare. On the road to the exit of the dungeon, the player could beat back the monsters, gain rewards and enhance the strength. 
 
