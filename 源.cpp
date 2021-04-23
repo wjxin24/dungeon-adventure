@@ -39,8 +39,6 @@ void fight_monster(Player& player);
 
 void buy(Player &player);
 
-void lose_game(string player_name);
-
 void quit(Player player);
 
 int main() {
@@ -233,7 +231,7 @@ void trigger(Player& player, int map[4][4]) {
 			cout << "You were attacked by the monster while fleeing away... HP-10" << endl;
 			player.HP -= 10;
 			if (player.HP <= 0) {
-				lose_game(player.name);
+				cout << "Sorry, you lose the game!" << endl;
 				return;
 			}
 			cout << "HP:" << player.HP << ", LV=" << player.LV << ", coins=" << player.coin << endl;
@@ -255,7 +253,7 @@ void fight_monster(Player& player) {
 			<< " HP-" << 10 * (monster_lv - player.LV) << endl;
 		player.HP -= 10 * (monster_lv - player.LV);
 		if (player.HP <= 0) {
-			lose_game(player.name);
+			cout << "Sorry, you lose the game!" << endl;
 			return;
 		}
 		cout << "HP:" << player.HP << ", LV=" << player.LV << ", coins=" << player.coin << endl;
