@@ -19,8 +19,11 @@ struct Player {
 	int floor;
 };
 
-void read_PlayerInfo(Player player);
 
+vector <coor> path;
+
+void initialize_newplayerinfo(Player player);
+	
 void generate_map(int map[4][4]);
 
 void print_MapGuide(const Player player);
@@ -29,7 +32,7 @@ void print_map(const int floor, const int row, const int col);
 
 void next_floor(Player& player, int map[4][4], vector<coor> path);
 
-void read_PlayerInput();
+void read_PlayerInput(Player &player, int map[4][4]);
 
 //调整坐标 player.coor,添加path,触发怪兽,把到过的格子清空
 void movement(char move, Player &player, int map[4][4], vector<coor> path);
@@ -41,39 +44,14 @@ void fight_monster(Player& player);
 
 void buy(Player &player);
 
-void quit(Player player);
+void startGame(Player &player, int map[4][4]);
 
-int main() {
-	Player player;
-	int map[4][4] = { 0 };
-	vector<coor> path;
-	char input;
-	string name;
-	string game_description; //还没写
+void quit(Player player, string name);
 
-	cout << game_description << endl;
-	cout << "Please enter your name(no space allowed):";
-	cin >> name;
-	// if(...)
-	cout << "Do you want to start a new game(n) or continue your game(c)?:";
-	cin >> input;
-	switch (input) {
-	case 'n':
-		// ...
-		cout << endl;
-		break;
 
-	case 'c':
-		read_PlayerInfo(player);
-		cout << endl;
-		break;
 
-	default:
-		cout << "Invalid input! Please type again (n/c):";
-		cin >> input;
-		cout << endl;
-	}
-}
+//
+
 
 void generate_map(int map[4][4]) {
 	srand(time(NULL));
@@ -86,12 +64,12 @@ void generate_map(int map[4][4]) {
 		i++;
 	}
 	// generate coins in 3 random empty girds except entrance and exit
-	int i = 0;
-	while (i < 3) {
+	int j = 0;
+	while (j < 3) {
 		int grid = rand() % 14 + 1;
 		if (map[grid / 4][grid % 4] == 0)
 			map[grid / 4][grid % 4] = 2;
-		i++;
+		++;
 	}
 }
 
@@ -151,7 +129,7 @@ void print_map(const int row, const int col) {
 	cout << " |____________|\n   0  1  2  3\n";
 }
 
-void next_floor(Player& player, int map[4][4], vector<coor> path) {
+void next_floor(Player& player, int map[4][4]) {
 	map = { 0 };
 	generate_map;
 	coor entrance;
@@ -246,7 +224,7 @@ void trigger(Player& player, int map[4][4]) {
 			player.HP -= 10;
 			if (player.HP <= 0) {
 				cout << "Sorry, you lose the game!" << endl;
-				return;
+				exit(0);
 			}
 			cout << "HP:" << player.HP << ", LV=" << player.LV << ", coins=" << player.coin << endl;
 		}
@@ -268,7 +246,7 @@ void fight_monster(Player& player) {
 		player.HP -= 10 * (monster_lv - player.LV);
 		if (player.HP <= 0) {
 			cout << "Sorry, you lose the game!" << endl;
-			return;
+			exit(0);
 		}
 		cout << "HP:" << player.HP << ", LV=" << player.LV << ", coins=" << player.coin << endl;
 	}
@@ -279,8 +257,8 @@ void fight_monster(Player& player) {
 		cout << "HP:" << player.HP << ", LV=" << player.LV << ", coins=" << player.coin << endl;
 	}
 }
-
-void movement(char move, Player& player, int map[4][4], vector<coor> path) {
+//我把parameter vector<coor> path删掉 vector声明放在整个文件开头
+void movement(char move, Player& player, int map[4][4]) {   
 	if (move == 'w' && player.pos.row < 3) {
 		player.pos.row++;
 		path.push_back(player.pos);
@@ -299,10 +277,10 @@ void movement(char move, Player& player, int map[4][4], vector<coor> path) {
 	}
 	if (player.pos.row == 3 && player.pos.column == 3) {
 		if (player.floor < 3)
-			next_floor(player, map, path);
+			next_floor(player, map);
 		else {
 			cout << "Congratulations! You win!" << endl;
-			return;
+			exit(0);
 		}
 	}
 		
