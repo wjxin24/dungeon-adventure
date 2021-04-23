@@ -25,7 +25,9 @@ void generate_map(int map[4][4]);
 
 void print_MapGuide(const Player player);
 
-void print_map(const int row, const int col);
+void print_map(const int floor, const int row, const int col);
+
+void next_floor(Player& player, int map[4][4], vector<coor> path);
 
 void read_PlayerInput();
 
@@ -147,6 +149,18 @@ void print_map(const int row, const int col) {
 		cout << "            |\n";
 	}
 	cout << " |____________|\n   0  1  2  3\n";
+}
+
+void next_floor(Player& player, int map[4][4], vector<coor> path) {
+	map = { 0 };
+	generate_map;
+	coor entrance;
+	entrance.row = 0;
+	entrance.column = 0;
+	player.floor++;
+	player.pos = entrance;
+	path.clear();
+	path.push_back(player.pos);
 }
 
 void buy(Player& player) {
@@ -283,7 +297,16 @@ void movement(char move, Player& player, int map[4][4], vector<coor> path) {
 		player.pos.column++;
 		path.push_back(player.pos);
 	}
-	print_map(player.pos.row, player.pos.column);
+	if (player.pos.row == 3 && player.pos.column == 3) {
+		if (player.floor < 3)
+			next_floor(player, map, path);
+		else {
+			cout << "Congratulations! You win!" << endl;
+			return;
+		}
+	}
+		
+	print_map(player.floor, player.pos.row, player.pos.column);
 	trigger(player, map);
 }
 
