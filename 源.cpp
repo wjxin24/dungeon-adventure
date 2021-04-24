@@ -123,7 +123,7 @@ int main(){
 void print_Intro(){
   cout << "## Game Description ##" << endl;
   cout << "Welcome to Dungeon-Adventure!" << endl;
-  cout << " You,a warrior, are caught in the dungeon now." << endl;
+  cout << "You,a warrior, are caught in the dungeon now." << endl;
   cout << "The dungeon has 3 floors of 4*4 grid with ascending difficulties." << endl;
   cout << "(0,0) is the entrance and (3,3) is the exit." << endl;
   cout << "On each floor, monsters and coins will randomly appear." << endl;
@@ -209,10 +209,6 @@ void startGame(Player &player, int map[4][4]){
 
 
 
-
-
-
-
 void generate_map(int map[4][4]) {
 	srand(time(NULL));
 	// generate monsters in 5 random empty girds except entrance and exit
@@ -223,9 +219,9 @@ void generate_map(int map[4][4]) {
 			map[grid / 4][grid % 4] = 1;
 		i++;
 	}
-	// generate coins in 3 random empty girds except entrance and exit
+	// generate coins in 6 random empty girds except entrance and exit
 	int j = 0;
-	while (j < 3) {
+	while (j < 6) {
 		int grid = rand() % 14 + 1;
 		if (map[grid / 4][grid % 4] == 0)
 			map[grid / 4][grid % 4] = 2;
@@ -448,31 +444,55 @@ void fight_monster(Player& player) {
 
 void movement(char move, Player& player, int map[4][4], Position& pos) {
 
-	if (move == 'W' && player.row < 3) {
+	if (move == 'W') {
+		if (player.row < 3){
 		player.row++;
-    pos.x = player.row;
+    		pos.x = player.row;
 		path.push_back(pos);
+		}
+		else{
+			cout << "Oops! You bumped into the wall" << endl;
+			return;
+		}
 	}
-	else if (move == 'A' && player.column > 0) {
+	else if (move == 'A'){
+		if (player.column > 0) {
 		player.column--;
-    pos.y = player.column;
+    		pos.y = player.column;
 		path.push_back(pos);
+		}
+		else{
+			cout << "Oops! You bumped into the wall" << endl;
+			return;
+		}
 	}
-	else if (move == 'S' && player.row > 0) {
+	else if (move == 'S'){
+		if (player.row > 0) {
 		player.row--;
-    pos.x = player.row;
+    		pos.x = player.row;
 		path.push_back(pos);
+		}
+		else{
+			cout << "Oops! You bumped into the wall" << endl;
+			return;
+		}
 	}
-	else if (move == 'D' && player.column < 3) {
+	else if (move == 'D'){ 
+		if (player.column < 3) {
 		player.column++;
-    pos.y = player.column;
+    		pos.y = player.column;
 		path.push_back(pos);
+		}
+		else{
+			cout << "Oops! You bumped into the wall" << endl;
+			return;
+		}
 	}
-  print_map(player.row, player.column,player);
+  
   print_Path();
   cout << " " <<endl;
 
-	if (player.row == 3 && player.column == 3 ) {
+ if (player.row == 3 && player.column == 3 ) {
      path.clear();
      pos.x = 0;
      pos.y = 0;
