@@ -326,7 +326,7 @@ void buy(Player& player) {
 				cout << endl;
 			}
 			while (amount > player.coin) {
-				cout << endl << "Sorry, you don't have enough coins! You may enter 0 to cancel your purchase." << endl;
+				cout << "Sorry, you don't have enough coins! You may enter 0 to cancel your purchase." << endl;
 				cout << "Your current HP = " << player.HP << ". You have " << player.coin << " coins now." << endl;
 				cout << "How much health points do you want to buy?(1 coin for 1 health point):";
 				cin >> amount;
@@ -397,7 +397,7 @@ void trigger(Player& player, int map[4][4]) {
 			map[player.row][player.column] = 0;	  // reset to an empty grid
 		}
 		else {
-			cout << "You were attacked by the monster while fleeing away... HP-10" << endl;
+			cout << "Ouch! You were attacked by the monster while fleeing away... HP-10" << endl;
       cout<<endl;
 			player.HP -= 10;
 			if (player.HP <= 0) {
@@ -408,9 +408,9 @@ void trigger(Player& player, int map[4][4]) {
 		}
 	}
 	if (map[player.row][player.column] == 2) {
-		cout << "You found some coins! coins+10" << endl;
+		cout << "You found some coins! coins+20" << endl;
     cout<<endl;
-		player.coin += 10;
+		player.coin += 20;
 		cout << "HP:" << player.HP << ", LV=" << player.LV << ", coins=" << player.coin << endl;
 		map[player.row][player.column] = 0;	  // reset to an empty grid
 	}
@@ -430,9 +430,9 @@ void fight_monster(Player& player) {
 		cout << "Update: "<<"HP=" << player.HP << ", LV=" << player.LV << ", coins=" << player.coin << endl;
 	}
 	if (player.LV > monster_lv) {
-		cout << "The monster is lv" << monster_lv << ". You win the fight!"
-			<< " coins+" << 20 * (player.LV - monster_lv) << endl;
-		player.coin += 20 * (player.LV - monster_lv);
+		cout << "The monster is lv" << monster_lv << ". You win the fight! Well Done!"
+			<< " coins+" << 40 * (player.LV - monster_lv) << endl;
+		player.coin += 40 * (player.LV - monster_lv);
 		cout << "Update: "<<"HP=" << player.HP << ", LV=" << player.LV << ", coins=" << player.coin << endl;
 	}
   if (player.LV == monster_lv){
