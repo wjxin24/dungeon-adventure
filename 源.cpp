@@ -305,18 +305,18 @@ void print_map(const int row, const int col, Player player) {
 
 
 void buy(Player& player) {
-	int choice;
+	char choice;
 	cout << "Welcome to Dungeon Shop!" << endl;
 	cout << "What do you want to buy? 1: Health points  2: Level   0: leave" << endl;
 	cout << "Please enter '1'/'2'/'0':";
 	cin >> choice;
 	cout << endl;
-	while (choice != 1 && choice != 2 && choice != 0) {
+	while (choice != '1' && choice != '2' && choice != '0') {
 		cout << "Invalid input! Please enter '1'/'2'/'0':";
 		cin >> choice;
 	}
-	while (choice != 0) {
-		if (choice == 1) {
+	while (choice != '0') {
+		if (choice == '1') {
 			int amount;
       cout << "Your current HP = " << player.HP << ". You have " << player.coin << " coins now." << endl;
       cout << "Your HP should not exceed 100" << endl;
@@ -346,7 +346,7 @@ void buy(Player& player) {
 			player.HP += amount;
 			cout <<"Update: HP=" << player.HP << ", LV=" << player.LV << ", coins=" << player.coin << endl;
 		}
-		if (choice == 2) {
+		if (choice == '2') {
 			char respond;
 			cout << "Your current level = " << player.LV << ". You have " << player.coin << " coins now." << endl;
       if (player.coin < player.LV * 5){
@@ -374,7 +374,7 @@ void buy(Player& player) {
 		cout << "Please enter '1'/'2'/'0':";
 		cin >> choice;
 		cout << endl;
-		while (choice != 1 && choice != 2 && choice != 0) {
+		while (choice != '1' && choice != '2' && choice != '0') {
 			cout << "Invalid input! Please enter '1'/'2'/'0':";
 			cin >> choice;
 			cout << endl;
