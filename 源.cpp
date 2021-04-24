@@ -32,6 +32,7 @@ void generate_map(int map[4][4]);
 void initialize_newplayerinfo(Player & player);
 void movement(char move, Player &player, int map[4][4], Position & pos);
 void next_floor(Player& player, int map[4][4], Position &pos);
+void print_Intro();
 void print_MapGuide(const Player player);
 void print_map(const int row, const int col, Player player);
 void print_Path();
@@ -41,6 +42,7 @@ void startGame(Player &player, int map[4][4]);
 void trigger(Player& player, int map[4][4]);
 
 int main(){
+  print_Intro();
   cout << "please type your name:" << endl;
   string username;
   cin >> username;
@@ -118,6 +120,18 @@ int main(){
 }
 
 
+void print_Intro(){
+  cout << "## Game Description ##" << endl;
+  cout << "Welcome to Dungeon-Adventure!" << endl;
+  cout << " You,a warrior, are caught in the dungeon now." << endl;
+  cout << "The dungeon has 3 floors of 4*4 grid with ascending difficulties." << endl;
+  cout << "(0,0) is the entrance and (3,3) is the exit." << endl;
+  cout << "On each floor, monsters and coins will randomly appear." << endl;
+  cout << "You will win the game if you successfully arrive (3,3) of the final floor." << endl;
+  cout << "Good Luck!" << endl;
+  cout << "######################" << endl;
+  cout << " " << endl;
+}
 
 
 
