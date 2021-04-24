@@ -43,7 +43,7 @@ void trigger(Player& player, int map[4][4]);
 
 int main(){
   print_Intro();
-  cout << "please type your name:" << endl;
+  cout << "please type your name(no space allowed):" << endl;
   string username;
   cin >> username;
   Player player;
