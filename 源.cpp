@@ -158,7 +158,7 @@ void read_PlayerInput(Player &player, int map[4][4], Position &pos){
     cout << "Sorry, you lose the game!" << endl;
     exit(0);
   }
-
+  print_map(player.row, player.column, player);
   print_MapGuide(player);
   char userinput;
   cin >> userinput;
@@ -186,7 +186,6 @@ void read_PlayerInput(Player &player, int map[4][4], Position &pos){
 
 //   movement generate map  buy
 void startGame(Player &player, int map[4][4]){
-  print_map(player.row, player.column, player);//初始
   generate_map(map);
   Position pos;
   pos.x = 0;
@@ -306,21 +305,29 @@ void buy(Player& player) {
 	while (choice != 0) {
 		if (choice == 1) {
 			int amount;
-      cout << "Your current HP = " << player.HP << ", You have " << player.coin << " coins now." << endl;
+      cout << "Your current HP = " << player.HP << ". You have " << player.coin << " coins now." << endl;
       cout << "Your HP should not exceed 100" << endl;
 			cout << "How much health points do you want to buy?(1 coin for 1 health point):";
 			cin >> amount;
-
+			cout << endl;
+			while (amount < 0){
+				cout << "Invalid input! Please enter a positive interger or enter 0 to cancel your purchase:";
+				cin >> amount;
+				cout << endl;
+			}
 			while (amount > player.coin) {
-				cout << endl << "Sorry, you don't have enough coins!" << endl;
+				cout << endl << "Sorry, you don't have enough coins! You may enter 0 to cancel your purchase." << endl;
+				cout << "Your current HP = " << player.HP << ". You have " << player.coin << " coins now." << endl;
 				cout << "How much health points do you want to buy?(1 coin for 1 health point):";
 				cin >> amount;
 				cout << endl;
 			}
 			while (player.HP + amount > 100) {
-				cout << endl << "Sorry, your health points should not exceed 100!" << endl;
+				cout << "Sorry, your health points should not exceed 100!" << endl;
+				cout << "Your current HP = " << player.HP << ". You have " << player.coin << " coins now." << endl;
 				cout << "How much health points do you want to buy?(1 coin for 1 health point):";
 				cin >> amount;
+				cout << endl;
 			}
 			player.coin -= amount;
 			player.HP += amount;
@@ -328,7 +335,7 @@ void buy(Player& player) {
 		}
 		if (choice == 2) {
 			char respond;
-			cout << "Your current level = " << player.LV << endl;
+			cout << "Your current level = " << player.LV << ". You have " << player.coin << " coins now." << endl;
       if (player.coin < player.LV * 5){
         cout << "Upgrading to level " << player.LV + 1 << " will cost "
   				<< player.LV * 5 << " coins. Sorry, you don't have enough coins!"<<endl;
@@ -360,8 +367,7 @@ void buy(Player& player) {
 			cout << endl;
 		}
 	}
-	cout << "Thanks for visiting Dungeon Shop! Good luck! Bye!" << endl;
-  cout << "  "<<endl;
+	cout << "Thanks for visiting Dungeon Shop! Good luck! Bye!" << endl << endl;
 }
 
 void trigger(Player& player, int map[4][4]) {
