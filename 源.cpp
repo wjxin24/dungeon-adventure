@@ -31,7 +31,6 @@ void fight_monster(Player& player);
 void generate_map(int map[4][4]);
 void initialize_newplayerinfo(Player & player);
 void movement(char move, Player &player, int map[4][4], Position & pos);
-void next_floor(Player& player, int map[4][4], Position &pos);
 void print_Intro();
 void print_MapGuide(const Player player);
 void print_map(const int row, const int col, Player player);
@@ -183,6 +182,8 @@ void read_PlayerInput(Player &player, int map[4][4], Position &pos){
   else {
     if (userinput == 'W' || userinput == 'S' || userinput == 'A' || userinput == 'D'){
       movement(userinput, player, map, pos);
+      if(player.row == 3 && player.column == 3)
+        return;
       if (player.floor==4)
 	      return;
     }
@@ -190,15 +191,15 @@ void read_PlayerInput(Player &player, int map[4][4], Position &pos){
       buy(player);
     }
     else {
-      cout<< "Invalid input! Please type again." << endl;
+      cout<< "Invalid input! Please type again:";
+      cin >> userinput;
+      cout<<endl;
     }
-    if(player.row == 3 && player.column == 3){
-      return;
     }
-    else{
+    
       read_PlayerInput(player, map, pos);
-    }
-  }
+    
+  
 }
 
 //   movement generate map  buy
