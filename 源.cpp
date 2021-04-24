@@ -1,56 +1,203 @@
 #include <iostream>
+#include <fstream>
+#include <string>
 #include <cstdlib>
+#include <cstdio>
 #include <ctime>
 #include <vector>
-
 using namespace std;
 
-struct coor {
-	int row;
-	int column;
+
+struct Position {
+ 	int x;
+ 	int y;
 };
 
 struct Player {
-	string name;
-	int HP;
-	int coin;
-	int LV;
-	coor pos;
-	int floor;
+ 	string name;
+ 	int HP;
+ 	int coin;
+ 	int LV;
+ 	int floor;
+  int row;
+  int column;
 };
 
+vector <Position> path;
 
-vector <coor> path;
-
-void initialize_newplayerinfo(Player player);
-	
-void generate_map(int map[4][4]);
-
-void print_MapGuide(const Player player);
-
-void print_map(const int floor, const int row, const int col);
-
-void next_floor(Player& player, int map[4][4], vector<coor> path);
-
-void read_PlayerInput(Player &player, int map[4][4]);
-
-//调整坐标 player.coor,添加path,触发怪兽,把到过的格子清空
-void movement(char move, Player &player, int map[4][4], vector<coor> path);
-
-void trigger(Player& player, int map[4][4]);
-
-// monster level的范围根据player.floor决定
-void fight_monster(Player& player);
 
 void buy(Player &player);
-
-void startGame(Player &player, int map[4][4]);
-
+void fight_monster(Player& player);
+void generate_map(int map[4][4]);
+void initialize_newplayerinfo(Player & player);
+void movement(char move, Player &player, int map[4][4], Position & pos);
+void next_floor(Player& player, int map[4][4], Position &pos);
+void print_MapGuide(const Player player);
+void print_map(const int row, const int col, Player player);
+void print_Path();
 void quit(Player player, string name);
+void read_PlayerInput(Player &player, int map[4][4], Position & pos);
+void startGame(Player &player, int map[4][4]);
+void trigger(Player& player, int map[4][4]);
+
+int main(){
+  cout << "please type your name:"<<endl;
+  string username;
+  cin >> username;
+  Player player;
+  string filename = username + ".txt";
+  ifstream fin;
+  fin.open(filename.c_str(),ios::in);
+  if(fin){
+    char input_norc;
+    cout << "Hi, " << username << "! You have an unfinished game." << endl;
+    cout << "Do you want to Start A New Game (please type N) or Continue (please type C)?" << endl;
+    bool flag = true;
+    while (flag == true){
+      cin >> input_norc;
+      if (input_norc == 'N'){
+        cout << "Hi, "<<username <<"! Welcome to new game." << endl;
+        player.name = username;
+        initialize_newplayerinfo(player);
+        flag = false;
+        break;
+      }
+      else if (input_norc == 'C'){
+        cout << "Hi, " << username << "! Continue last try." << endl;
+        ifstream fin1(filename.c_str());
+        string n;
+       	int hp;
+       	int coins;
+       	int lv;
+       	int f;
+        int r;
+        int c;
+        fin1 >> n >> hp >> coins >> lv >> f >> r >> c;
+        player.name = n;
+       	player.HP = hp;
+       	player.coin = coins;
+       	player.LV = lv;
+       	player.floor = f;
+        player.row = r;
+        player.column = c;
+        fin1.close();
+        flag = false;
+        break;
+      }
+      else {
+        cout << "Invalid input! Please type again (N/C):" << endl;
+      }
+    }
+    fin.close();
+    remove(filename.c_str());
+  }
+
+  else{
+    cout << "Hi, " << username << "! Welcome to new game" << endl;
+    player.name = username;
+    initialize_newplayerinfo(player);
+    fin.close();
+  }
+
+  int floorcount = 1;
+  int map[4][4] = {0};
+  while (floorcount < 4){
+    startGame(player,map);//yao fuzhi'
+    player.row = 0;
+    player.column = 0;
+    player.floor++;
+    floorcount++;
+
+  }
+  if (floorcount == 4){
+    cout << "Congratulations! You win!" << endl;
+    exit(0);
+  }
+  return 0;
+
+}
 
 
 
-//
+
+
+
+void print_Path(){
+  vector<Position>::iterator itr;
+  for (itr = path.begin(); itr != path.end(); itr++)
+     cout << '(' << (*itr).x << ','<<(*itr).y << ") -> ";
+}
+
+
+void initialize_newplayerinfo(Player & player){
+  player.HP = 100;
+  player.coin = 0;
+  player.LV = 1;
+  player.floor = 1;
+  player.row = 0;
+  player.column = 0;
+}
+
+
+void quit(Player player, string name){
+  string filename = name + ".txt";
+  ofstream fout(filename.c_str());//erase yes
+  if (fout.fail()){
+    cout << "Error in file opening!" << endl;
+    exit(1);
+  }
+  fout << player.name << " " << player.HP << " " << player.coin << " " << player.LV << " " << player.floor << " " << player.row<<" " <<player.column<<endl;
+  fout.close();
+  cout << name << ", Your archive has been saved." << endl;
+  cout << "Quit the game, see you again!" << endl;
+  exit(0);
+}
+
+void read_PlayerInput(Player &player, int map[4][4], Position &pos){
+  if (player.HP <= 0) {
+    cout << "Sorry, you lose the game!" << endl;
+    exit(0);
+  }
+
+  print_MapGuide(player);
+  char userinput;
+  cin >> userinput;
+  if (userinput == 'Q'){
+    quit(player, player.name);
+  }
+  else {
+    if (userinput == 'W' || userinput == 'S' || userinput == 'A' || userinput == 'D'){
+      movement(userinput, player, map, pos);
+    }
+    else if (userinput == 'B'){
+      buy(player);
+    }
+    else {
+      cout<< "Invalid input! Please type again." << endl;
+    }
+    if(player.row == 3 && player.column == 3){
+      return;
+    }
+    else{
+      read_PlayerInput(player, map, pos);
+    }
+  }
+}
+
+//   movement generate map  buy
+void startGame(Player &player, int map[4][4]){
+  print_map(player.row, player.column, player);//初始
+  generate_map(map);
+  Position pos;
+  pos.x = 0;
+  pos.y = 0;
+  read_PlayerInput(player, map, pos);
+}
+
+
+
+
+
 
 
 void generate_map(int map[4][4]) {
@@ -69,20 +216,31 @@ void generate_map(int map[4][4]) {
 		int grid = rand() % 14 + 1;
 		if (map[grid / 4][grid % 4] == 0)
 			map[grid / 4][grid % 4] = 2;
-		++;
+		j++;
 	}
 }
 
 void print_MapGuide(const Player player) {
-	cout << "HP:" << player.HP << ", LV=" << player.LV << ", coins=" << player.coin << endl;
+	cout << "Your Current Attributes: "<<"HP=" << player.HP << ", LV=" << player.LV << ", coins=" << player.coin << endl;
 	cout << "enter 'W'/'A'/'S'/'D' to move upward/leftward/downward/rightward;" << endl;
 	cout << "enter 'B' to buy HP or upgrade your LV;" << endl;
 	cout << "enter 'Q' to save and quit the game;" << endl;
+  cout<< "Please enter:";
+
 }
 
-void print_map(const int floor, const int row, const int col) {
-	string floor_name[] = { "LG2","LG1","G" };
-	cout << "     " << floor_name[floor] << endl;
+void print_map(const int row, const int col, Player player) {
+  cout << endl;
+  if (player.floor == 1){
+    cout << "Dungeon LG2! Run!" << endl;
+  }
+  else if (player.floor == 2){
+    cout << "Dungeon LG1! Run!" << endl;
+  }
+  else if (player.floor == 3){
+    cout << "Dungeon G! Final floor! Run!" << endl;
+  }
+
 	cout << "  ____________\n3|";
 	if (row == 3) {
 		for (int i = 0; i < col; i++)
@@ -129,19 +287,10 @@ void print_map(const int floor, const int row, const int col) {
 		cout << "            |\n";
 	}
 	cout << " |____________|\n   0  1  2  3\n";
+
 }
 
-void next_floor(Player& player, int map[4][4]) {
-	map = { 0 };
-	generate_map;
-	coor entrance;
-	entrance.row = 0;
-	entrance.column = 0;
-	player.floor++;
-	player.pos = entrance;
-	path.clear();
-	path.push_back(player.pos);
-}
+
 
 void buy(Player& player) {
 	int choice;
@@ -157,10 +306,12 @@ void buy(Player& player) {
 	while (choice != 0) {
 		if (choice == 1) {
 			int amount;
+      cout << "Your current HP = " << player.HP << ", You have " << player.coin << "now." << endl;
+      cout << "Your HP should not exceed 100" << endl;
 			cout << "How much health points do you want to buy?(1 coin for 1 health point):";
 			cin >> amount;
 
-			while (amount < player.coin) {
+			while (amount > player.coin) {
 				cout << endl << "Sorry, you don't have enough coins!" << endl;
 				cout << "How much health points do you want to buy?(1 coin for 1 health point):";
 				cin >> amount;
@@ -173,25 +324,32 @@ void buy(Player& player) {
 			}
 			player.coin -= amount;
 			player.HP += amount;
-			cout << "HP:" << player.HP << ", LV=" << player.LV << ", coins=" << player.coin << endl;
+			cout <<"Update: HP=" << player.HP << ", LV=" << player.LV << ", coins=" << player.coin << endl;
 		}
 		if (choice == 2) {
 			char respond;
-			cout << "Your current level:" << player.LV << endl;
-			cout << "Upgrading to level " << player.LV + 1 << " will cost "
-				<< player.LV * 5 << " coins. Do you want to upgrade?(y/n):";
-			cin >> respond;
-			while (respond != 'y' && respond != 'n') {
-				cout << "Invalid input! Please enter 'y'/'n':";
-				cin >> respond;
-			}
-			if (respond == 'y') {
-				player.coin -= player.LV * 5;
-				player.LV++;
-				cout << "HP:" << player.HP << ", LV=" << player.LV << ", coins=" << player.coin << endl;
-			}
+			cout << "Your current level = " << player.LV << endl;
+      if (player.coin < player.LV * 5){
+        cout << "Upgrading to level " << player.LV + 1 << " will cost "
+  				<< player.LV * 5 << " coins. Sorry, you don't have enough coins!"<<endl;
+      }
+      else{
+        cout << "Upgrading to level " << player.LV + 1 << " will cost "
+  				<< player.LV * 5 << " coins. Do you want to upgrade?(Y/N):";
+  			cin >> respond;
+  			while (respond != 'Y' && respond != 'N') {
+  				cout << "Invalid input! Please enter 'Y'/'N':";
+  				cin >> respond;
+  			}
+  			if (respond == 'Y') {
+  				player.coin -= player.LV * 5;
+  				player.LV++;
+  				cout << "Update: HP=" << player.HP << ", LV=" << player.LV << ", coins=" << player.coin << endl;
+  			}
+      }
+
 		}
-		
+
 		cout << "What else do you want to buy? 1: Health points  2: Level   0: leave" << endl;
 		cout << "Please enter '1'/'2'/'0':";
 		cin >> choice;
@@ -202,27 +360,29 @@ void buy(Player& player) {
 			cout << endl;
 		}
 	}
-	cout << "Thanks for visiting Dungeon Shop! Bye!" << endl;
+	cout << "Thanks for visiting Dungeon Shop! Good luck! Bye!" << endl;
+  cout << "  "<<endl;
 }
 
 void trigger(Player& player, int map[4][4]) {
-	if (map[player.pos.row][player.pos.column] == 1) {
+	if (map[player.row][player.column] == 1) {
 		char choice;
 		cout << "You met a monster! The level range of the monster is ["
 			<< player.floor * 3 - 2 << ',' << player.floor * 3 << ']' << endl;
-		cout << "Do you want to fight the monster? Enter 'y'/'n':";
+		cout << "Do you want to fight the monster? Enter 'Y'/'N':";
 		cin >> choice;
 		cout << endl;
-		while (choice != 'y' && choice != 'n') {
-			cout << "Invalid input! Pleaze enter 'y'/'n':";
+		while (choice != 'Y' && choice != 'N') {
+			cout << "Invalid input! Pleaze enter 'Y'/'N':";
 			cin >> choice;
 		}
-		if (choice == 'y') {
+		if (choice == 'Y') {
 			fight_monster(player);
-			map[player.pos.row][player.pos.column] = 0;	  // reset to an empty grid
+			map[player.row][player.column] = 0;	  // reset to an empty grid
 		}
 		else {
 			cout << "You were attacked by the monster while fleeing away... HP-10" << endl;
+      cout<<endl;
 			player.HP -= 10;
 			if (player.HP <= 0) {
 				cout << "Sorry, you lose the game!" << endl;
@@ -231,11 +391,12 @@ void trigger(Player& player, int map[4][4]) {
 			cout << "HP:" << player.HP << ", LV=" << player.LV << ", coins=" << player.coin << endl;
 		}
 	}
-	if (map[player.pos.row][player.pos.column] == 2) {
+	if (map[player.row][player.column] == 2) {
 		cout << "You found some coins! coins+10" << endl;
+    cout<<endl;
 		player.coin += 10;
 		cout << "HP:" << player.HP << ", LV=" << player.LV << ", coins=" << player.coin << endl;
-		map[player.pos.row][player.pos.column] = 0;	  // reset to an empty grid
+		map[player.row][player.column] = 0;	  // reset to an empty grid
 	}
 }
 
@@ -250,43 +411,58 @@ void fight_monster(Player& player) {
 			cout << "Sorry, you lose the game!" << endl;
 			exit(0);
 		}
-		cout << "HP:" << player.HP << ", LV=" << player.LV << ", coins=" << player.coin << endl;
+		cout << "Update: "<<"HP=" << player.HP << ", LV=" << player.LV << ", coins=" << player.coin << endl;
 	}
 	if (player.LV > monster_lv) {
 		cout << "The monster is lv" << monster_lv << ". You win the fight!"
 			<< " coins+" << 20 * (player.LV - monster_lv) << endl;
 		player.coin += 20 * (player.LV - monster_lv);
-		cout << "HP:" << player.HP << ", LV=" << player.LV << ", coins=" << player.coin << endl;
+		cout << "Update: "<<"HP=" << player.HP << ", LV=" << player.LV << ", coins=" << player.coin << endl;
 	}
+  if (player.LV == monster_lv){
+    cout << "The monster is lv" << monster_lv <<". Ended in a draw. Nothing happen!" << endl;
+
+  }
+  cout << endl;
 }
-//我把parameter vector<coor> path删掉 vector声明放在整个文件开头
-void movement(char move, Player& player, int map[4][4]) {   
-	if (move == 'w' && player.pos.row < 3) {
-		player.pos.row++;
-		path.push_back(player.pos);
+
+void movement(char move, Player& player, int map[4][4], Position& pos) {
+
+	if (move == 'W' && player.row < 3) {
+		player.row++;
+    pos.x = player.row;
+		path.push_back(pos);
 	}
-	if (move == 'a' && player.pos.column > 0) {
-		player.pos.column--;
-		path.push_back(player.pos);
+	else if (move == 'A' && player.column > 0) {
+		player.column--;
+    pos.y = player.column;
+		path.push_back(pos);
 	}
-	if (move == 's' && player.pos.row > 0) {
-		player.pos.row--;
-		path.push_back(player.pos);
+	else if (move == 'S' && player.row > 0) {
+		player.row--;
+    pos.x = player.row;
+		path.push_back(pos);
 	}
-	if (move == 'd' && player.pos.column < 3) {
-		player.pos.column++;
-		path.push_back(player.pos);
+	else if (move == 'D' && player.column < 3) {
+		player.column++;
+    pos.y = player.column;
+		path.push_back(pos);
 	}
-	if (player.pos.row == 3 && player.pos.column == 3) {
-		if (player.floor < 2)
-			next_floor(player, map);
-		else {
-			cout << "Congratulations! You win!" << endl;
-			exit(0);
-		}
+  print_map(player.row, player.column,player);
+  print_Path();
+  cout << " " <<endl;
+
+	if (player.row == 3 && player.column == 3 ) {
+     path.clear();
+     pos.x = 0;
+     pos.y = 0;
+     path.push_back(pos);
+     return;
 	}
-		
-	print_map(player.floor, player.pos.row, player.pos.column);
-	trigger(player, map);
+  else{
+    trigger(player, map);
+  }
+
 }
+
 
