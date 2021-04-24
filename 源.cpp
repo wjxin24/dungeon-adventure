@@ -171,35 +171,30 @@ void read_PlayerInput(Player &player, int map[4][4], Position &pos){
     cout << "Sorry, you lose the game!" << endl;
     exit(0);
   }
-  print_map(player.row, player.column, player);
+
   print_MapGuide(player);
   char userinput;
   cin >> userinput;
-  cout << endl;
+  while (userinput != 'Q'&& userinput != 'W' && userinput !='S'&&userinput !='D'&&userinput !='A'&&userinput !='B'){
+    cout<< "Invalid input! Please type again." << endl;
+    cin>> userinput;
+  }
   if (userinput == 'Q'){
     quit(player, player.name);
   }
   else {
     if (userinput == 'W' || userinput == 'S' || userinput == 'A' || userinput == 'D'){
       movement(userinput, player, map, pos);
-      if(player.row == 3 && player.column == 3)
+      if(player.row == 3 && player.column == 3){
         return;
-      if (player.floor==4)
-	      return;
+      }
     }
     else if (userinput == 'B'){
       buy(player);
     }
-    else {
-      cout<< "Invalid input! Please type again:";
-      cin >> userinput;
-      cout<<endl;
-    }
-    }
-    
-      read_PlayerInput(player, map, pos);
-    
-  
+
+    read_PlayerInput(player, map, pos);
+  }
 }
 
 //   movement generate map  buy
