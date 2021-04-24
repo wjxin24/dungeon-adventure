@@ -41,7 +41,7 @@ void startGame(Player &player, int map[4][4]);
 void trigger(Player& player, int map[4][4]);
 
 int main(){
-  cout << "please type your name:"<<endl;
+  cout << "please type your name:" << endl;
   string username;
   cin >> username;
   Player player;
@@ -306,7 +306,7 @@ void buy(Player& player) {
 	while (choice != 0) {
 		if (choice == 1) {
 			int amount;
-      cout << "Your current HP = " << player.HP << ", You have " << player.coin << "now." << endl;
+      cout << "Your current HP = " << player.HP << ", You have " << player.coin << " coins now." << endl;
       cout << "Your HP should not exceed 100" << endl;
 			cout << "How much health points do you want to buy?(1 coin for 1 health point):";
 			cin >> amount;
