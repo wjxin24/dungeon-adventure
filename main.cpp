@@ -27,7 +27,6 @@ struct Player {
 // a vector to record the path of a player
 vector <Position> path;
 
-void print_Intro();
 
 void initialize_newplayerinfo(Player& player);
 
@@ -59,7 +58,16 @@ int main() {
 	string username;
 	Player player;
 	
-	print_Intro();
+	cout << "## Game Description ##" << endl;
+	cout << "Welcome to Dungeon-Adventure!" << endl;
+	cout << "You,a warrior, are caught in the dungeon now." << endl;
+	cout << "The dungeon has 3 floors of 4*4 grid with ascending difficulties." << endl;
+	cout << "(0,0) is the entrance and (3,3) is the exit." << endl;
+	cout << "On each floor, monsters and coins will randomly appear." << endl;
+	cout << "You will win the game if you successfully arrive (3,3) of the final floor." << endl;
+	cout << "Good Luck!" << endl;
+	cout << "######################" << endl;
+	cout << " " << endl;
 
 	cout << "please type your name(no space allowed):" << endl;
 	cin >> username;
@@ -141,19 +149,6 @@ int main() {
 
 }
 
-// print the game description and basic rules
-void print_Intro() {
-	cout << "## Game Description ##" << endl;
-	cout << "Welcome to Dungeon-Adventure!" << endl;
-	cout << "You,a warrior, are caught in the dungeon now." << endl;
-	cout << "The dungeon has 3 floors of 4*4 grid with ascending difficulties." << endl;
-	cout << "(0,0) is the entrance and (3,3) is the exit." << endl;
-	cout << "On each floor, monsters and coins will randomly appear." << endl;
-	cout << "You will win the game if you successfully arrive (3,3) of the final floor." << endl;
-	cout << "Good Luck!" << endl;
-	cout << "######################" << endl;
-	cout << " " << endl;
-}
 
 // initialize the default values for a new player
 // input: a Player struct of a new player
