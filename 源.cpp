@@ -176,12 +176,15 @@ void read_PlayerInput(Player &player, int map[4][4], Position &pos){
   print_MapGuide(player);
   char userinput;
   cin >> userinput;
+  cout << endl;
   if (userinput == 'Q'){
     quit(player, player.name);
   }
   else {
     if (userinput == 'W' || userinput == 'S' || userinput == 'A' || userinput == 'D'){
       movement(userinput, player, map, pos);
+      if (player.floor==4)
+	      return;
     }
     else if (userinput == 'B'){
       buy(player);
