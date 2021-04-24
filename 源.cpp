@@ -80,7 +80,9 @@ void print_MapGuide(const Player player) {
 	cout << "enter 'Q' to save and quit the game;" << endl;
 }
 
-void print_map(const int row, const int col) {
+void print_map(const int floor, const int row, const int col) {
+	string floor_name[] = { "LG2","LG1","G" };
+	cout << "     " << floor_name[floor] << endl;
 	cout << "  ____________\n3|";
 	if (row == 3) {
 		for (int i = 0; i < col; i++)
@@ -276,7 +278,7 @@ void movement(char move, Player& player, int map[4][4]) {
 		path.push_back(player.pos);
 	}
 	if (player.pos.row == 3 && player.pos.column == 3) {
-		if (player.floor < 3)
+		if (player.floor < 2)
 			next_floor(player, map);
 		else {
 			cout << "Congratulations! You win!" << endl;
