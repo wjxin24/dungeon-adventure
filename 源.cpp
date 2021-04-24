@@ -400,9 +400,9 @@ void trigger(Player& player, int map[4][4]) {
 			map[player.row][player.column] = 0;	  // reset to an empty grid
 		}
 		else {
-			cout << "Ouch! You were attacked by the monster while fleeing away... HP-10" << endl;
+			cout << "Ouch! You were attacked by the monster while fleeing away... HP-20" << endl;
       cout<<endl;
-			player.HP -= 10;
+			player.HP -= 20;
 			if (player.HP <= 0) {
 				cout << "Sorry, you lose the game!" << endl;
 				exit(0);
@@ -434,8 +434,8 @@ void fight_monster(Player& player) {
 	}
 	if (player.LV > monster_lv) {
 		cout << "The monster is lv" << monster_lv << ". You win the fight! Well Done!"
-			<< " coins+" << 40 * (player.LV - monster_lv) << endl;
-		player.coin += 40 * (player.LV - monster_lv);
+			<< " coins+" << 30 * (player.LV - monster_lv) << endl;
+		player.coin += 30 * (player.LV - monster_lv);
 		cout << "Update: "<<"HP=" << player.HP << ", LV=" << player.LV << ", coins=" << player.coin << endl;
 	}
   if (player.LV == monster_lv){
