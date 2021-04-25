@@ -54,24 +54,24 @@ Player could choose to start a new game or continue last attempt (if exists).
     - The player can save the game status, including health points, combat level, coins, floor number, position, and quit the game at any time. The game status will be output as a file named after his/her name.
     - If this player chooses to continue the unfinished game (if exists), the file containing the game status of the unfinished game will be input. 
 5. Program codes in multiple files 
-    The program includes the following files:
-    - the main function of the game (main.cpp)
-    - the function to start the game after initializing game status (startGame.cpp)
-    - the function to initialize the information for a new player (initialize_Newplayerinfo.cpp)
-    - the function to read player input and call the corresponding functions (read_PlayerInput.cpp)
-    - the function to print out the map and demonstrate the player's position (print_Map.cpp)
-    - the function to print the guide (print_MapGuide.cpp)
-    - the function to print the player's path on this floor (print_Path.cpp)
-    - the function to generate a random map of monsters and coins (generate_Map.cpp)
-    - the function to process the player’s move (movement.cpp)
-    - the function to process the fight with a monster (fight_Monster.cpp)
-    - the function to trigger different game events (trigger.cpp)
-    - the function to buy HP or upgrade combat level (buy.cpp)
-    - the function to save and output the game status to a file (quit.cpp)
-    - a makefile to compile and link all the files (Makefile)
-    - a header file to include the definition of structs and the declarations of all the functions (dungeon.h)
+    - The program includes the following files:
+      - the main function of the game (main.cpp)
+      - the function to start the game after initializing game status (startGame.cpp)
+      - the function to initialize the information for a new player (initialize_Newplayerinfo.cpp)
+      - the function to read player input and call the corresponding functions (read_PlayerInput.cpp)
+      - the function to print out the map and demonstrate the player's position (print_Map.cpp)
+      - the function to print the guide (print_MapGuide.cpp)
+      - the function to print the player's path on this floor (print_Path.cpp)
+      - the function to generate a random map of monsters and coins (generate_Map.cpp)
+      - the function to process the player’s move (movement.cpp)
+      - the function to process the fight with a monster (fight_Monster.cpp)
+      - the function to trigger different game events (trigger.cpp)
+      - the function to buy HP or upgrade combat level (buy.cpp)
+      - the function to save and output the game status to a file (quit.cpp)
+      - a makefile to compile and link all the files (Makefile)
+      - a header file to include the definition of structs and the declarations of all the functions (dungeon.h)
     
-    Different functions are separately put in multiple files to make the code clearer.
+   - Different functions are separately put in multiple files to make the code clearer.
    
 ## Compilation and execution instructions:
 - download and extract the files
