@@ -7,11 +7,8 @@
 #include <vector>
 
 #include "dungeon.h"
-using namespace std;
 
-extern Position pos;
-extern vector <Position> path;
-extern Player player;
+using namespace std;
 
 // save the player's information into a txt file named after the player's name,
 // and then exit the program
