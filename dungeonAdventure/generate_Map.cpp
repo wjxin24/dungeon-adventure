@@ -7,11 +7,9 @@
 #include <vector>
 
 #include "dungeon.h"
+
 using namespace std;
 
-extern Position pos;
-extern vector <Position> path;
-extern Player player;
 // generate a random 4*4 map for a new floor
 // input: a zero 4*4 array to store the map of the current floor
 void generate_Map(int map[4][4]) {
