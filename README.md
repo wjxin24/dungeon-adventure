@@ -64,7 +64,7 @@ Player could choose to start a new game or continue last attempt (if exists).
    
 ## Non-standard C++ libraries used in the program:
 #include <iostream> : cout/cin - read player's input and output guideline or information
-#include <fstream>  : file input/output - If user quit game at any time, a file including game record named after his/her name will be outputed. If this player chooses to continue the unfinished game (if exists), the file containing the game status        of the unfinished game will be input.
+#include <fstream>  : file input/output - If user quit game at any time, a file including game record named after his/her name will be outputed. If this player chooses to continue the unfinished game (if exists), the file containing the game status of the unfinished game will be input.
 #include <string>   : the usage of string varaible. for example, player's name
 #include <cstdlib>  : file input/output - fin.open(filename.c_str(),ios::in)
 #include <cstdio>   : remove(filename.c_str()) - remove the file with records of last attempt if the player want to start a new game
