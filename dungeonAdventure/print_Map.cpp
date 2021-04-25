@@ -7,11 +7,8 @@
 #include <vector>
 
 #include "dungeon.h"
-using namespace std;
 
-extern Position pos;
-extern vector <Position> path;
-extern Player player;
+using namespace std;
 
 // print a map to show the floor number and the player's current position
 // input: the row and column of the current position, floor number of the player
