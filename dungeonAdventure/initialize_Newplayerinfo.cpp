@@ -10,9 +10,6 @@
 
 using namespace std;
 
-//use external defined variable 
-extern Player player;
-
 // initialize the default values for a new player
 // input: a Player struct of a new player
 void initialize_Newplayerinfo(Player& player) {
