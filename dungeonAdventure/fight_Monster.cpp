@@ -7,11 +7,8 @@
 #include <vector>
 
 #include "dungeon.h"
-using namespace std;
 
-extern Position pos;
-extern vector <Position> path;
-extern Player player;
+using namespace std;
 
 // handle the fight with the monster
 // input: a Player struct of the player's information
