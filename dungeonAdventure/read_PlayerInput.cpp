@@ -7,11 +7,8 @@
 #include <vector>
 
 #include "dungeon.h"
-using namespace std;
 
-extern Position pos;
-extern vector <Position> path;
-extern Player player;
+using namespace std;
 
 // print the current map and the map guide,
 // read player's input continuously until the player quits/wins/loses,
