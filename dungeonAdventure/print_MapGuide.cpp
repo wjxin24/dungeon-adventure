@@ -7,11 +7,9 @@
 #include <vector>
 
 #include "dungeon.h"
+
 using namespace std;
 
-extern Position pos;
-extern vector <Position> path;
-extern Player player;
 // print the player's current attributes and a guide for input
 // input: a Player struct of the player's information
 void print_MapGuide(const Player player) {
