@@ -90,7 +90,7 @@ int main() {
 		initialize_Newplayerinfo(player);
 	}
 
-	int floorcount = 1;		// an interger to count the floor number
+	int floorcount = player.floor;		// an interger to count the floor number
 
 	while (floorcount < 4) {
 		int map[4][4] = { 0 };
