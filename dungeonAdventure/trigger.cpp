@@ -7,11 +7,9 @@
 #include <vector>
 
 #include "dungeon.h"
+
 using namespace std;
 
-extern Position pos;
-extern vector <Position> path;
-extern Player player;
 // trigger a corresponding event if the player enters a grid with monsters/coins
 // input: a Player struct of the player's information,
 //		  a 4*4 array of the map for the current floor
