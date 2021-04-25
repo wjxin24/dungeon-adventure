@@ -28,6 +28,11 @@ struct Player {
 	int column;
 };
 
+//use external defined variables 
+extern Position pos;
+extern vector <Position> path;
+extern Player player;
+
 void initialize_Newplayerinfo(Player& player);
 
 void startGame(Player& player, int map[4][4]);
