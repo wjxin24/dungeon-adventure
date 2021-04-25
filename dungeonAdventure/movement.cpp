@@ -7,11 +7,8 @@
 #include <vector>
 
 #include "dungeon.h"
-using namespace std;
 
-extern Position pos;
-extern vector <Position> path;
-extern Player player;
+using namespace std;
 
 // change the player's position and add to the player's path,
 // call the function trigger to trigger events when a player enters new grids
