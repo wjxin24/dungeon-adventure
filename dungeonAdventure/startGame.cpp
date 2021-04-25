@@ -7,11 +7,8 @@
 #include <vector>
 
 #include "dungeon.h"
+
 using namespace std;
-
-
-extern vector <Position> path;
-extern Player player;
 
 // start the game on a new floor, and generate a random map for this floor,
 // initialize the player's position,and begin to read the player's input
