@@ -1,4 +1,4 @@
-# dungeon-advanture
+# dungeon-adventure
 ## Team Members
 - Wu Jiaxin (3035770886)
 - Chan KwanYi (3035691561)
