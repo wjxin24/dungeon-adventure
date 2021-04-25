@@ -7,11 +7,9 @@
 #include <vector>
 
 #include "dungeon.h"
+
 using namespace std;
 
-extern Position pos;
-extern vector <Position> path;
-extern Player player;
 // function for the player to buy HP or upgrade level
 // input: a Player struct of the player's information
 void buy(Player& player) {
