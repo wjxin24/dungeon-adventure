@@ -13,7 +13,7 @@ using namespace std;
 #ifndef DUNGEON
 #define DUNGEON
 
-
+// a struct for each gird that the player passed by 
 struct Position {
 	int x;
 	int y;
@@ -29,11 +29,6 @@ struct Player {
 	int row;
 	int column;
 };
-
-// a vector to record the path of a player
-
-
-
 
 void initialize_Newplayerinfo(Player& player);
 
