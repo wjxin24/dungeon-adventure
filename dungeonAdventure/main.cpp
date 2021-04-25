@@ -10,7 +10,7 @@
 using namespace std;
 extern Position pos;
 
-
+// a vector to record the path of a player
 vector <Position> path;
 
 
