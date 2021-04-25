@@ -42,32 +42,41 @@ Player could choose to start a new game or continue last attempt (if exists).
 
 ## Coding elements and related features:
 1. Generation of random game sets or events: 
-    - Monsters and coins are generated in random grids (coordinate) whenever the player enters a new floor.
+    - Monsters and coins are generated in random grids whenever the player enters a new floor.
     - The levels of monsters are generated randomly within a given range on each floor.
 2. Data structures for storing game status
     - An array is used to store the map of monsters and coins on each floor.
-    - Status of the player (health points, combat level, the coordinate of the current grid, coins, path) is updated and stored by int or string variables after each move.
+    - Status of the player (health points, combat level, coins, path, floor number, position) is updated and stored by int or string variables after each operation.
 3. Dynamic memory management 
-    - A vector is created to store the path (the grid that the player passed by) on each floor to remind him/her. 
-    - Data of the path previous floors is deleted after the player enters a new floor, and the path date will be regenerated and stored in the memory.
+    - A vector is created to store the path (the grids that the player passed by) on each floor to remind him/her. 
+    - Data of the path on previous floors will be deleted after the player enters a new floor, and the path data will be regenerated and stored in the memory.
 4. File input/output (e.g., for loading/saving game status)
-    - The player can save the game status, including health points, combat level and floor number, and quit the game at any time. The game status will be output as a file named after his/her name.
+    - The player can save the game status, including health points, combat level, coins, floor number, position, and quit the game at any time. The game status will be output as a file named after his/her name.
     - If this player chooses to continue the unfinished game (if exists), the file containing the game status of the unfinished game will be input. 
 5. Program codes in multiple files 
-    The program will include main() function and following functions:
+    The program includes the following files:
+    - the main function of the game (main.cpp)
+    - the function to start the game after initializing game status (startGame.cpp)
+    - the function to initialize the information for a new player (initialize_Newplayerinfo.cpp)
+    - the function to read player input and call the corresponding functions (read_PlayerInput.cpp)
+    - the function to print out the map and demonstrate the player's position (print_Map.cpp)
+    - the function to print the guide (print_MapGuide.cpp)
+    - the function to print the player's path on this floor (print_Path.cpp)
     - the function to generate a random map of monsters and coins (generate_Map.cpp)
-    - the function to process the player’s move (move.cpp)
-    - the function to buy HP or increase combat level (buy.cpp)
-    etc.
+    - the function to process the player’s move (movement.cpp)
+    - the function to process the fight with a monster (fight_Monster.cpp)
+    - the function to trigger different game events (trigger.cpp)
+    - the function to buy HP or upgrade combat level (buy.cpp)
+    - the function to save and output the game status to a file (quit.cpp)
+    - a makefile to compile and link all the files (Makefile)
+    - a header file to include the definition of structs and the declarations of all the functions (dungeon.h)
     
     Different functions are separately put in multiple files to make the code clearer.
    
-## Non-standard C++ libraries used in the program:
-#include <iostream> : cout/cin - read player's input and output guideline or information
-#include <fstream>  : file input/output - If user quit game at any time, a file including game record named after his/her name will be outputed. If this player chooses to continue the unfinished game (if exists), the file containing the game status of the unfinished game will be input.
-#include <string>   : the usage of string varaible. for example, player's name
-#include <cstdlib>  : file input/output - fin.open(filename.c_str(),ios::in)
-#include <cstdio>   : remove(filename.c_str()) - remove the file with records of last attempt if the player want to start a new game
-#include <ctime>    : srand(time(NULL)) - time used to generate random numbers
-#include <vector>   : vector <Position> path - a vector to store the path (the grid where the player passed by) on each floor
+## Compilation and execution instructions:
+- download and extract the files
+- navigate to the directory "dungeonAdventure" (using command `cd`)
+- enter `make dungeonAdventure`
+- enter `./dungeonAdventure` to start the game
+
 
