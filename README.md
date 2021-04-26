@@ -78,5 +78,5 @@ Player could choose to start a new game or continue last attempt (if exists).
 - navigate to the directory "dungeonAdventure" (using command `cd`)
 - enter `make dungeonAdventure`
 - enter `./dungeonAdventure` to start the game
-
+- input your name. If you are a newplayer or you choose to create a new game, it will open the new one. If you are a oldplayer who would like to continue last attemp, you input the same name with that of last attempt. Then the system will input and read your last attempt record file which is named after the player's name. For example, firstly save the file david.txt in 'file input and output' in the place where you put the programme cpp, then run the programme. choole input david and choose continue last attempt.
 
